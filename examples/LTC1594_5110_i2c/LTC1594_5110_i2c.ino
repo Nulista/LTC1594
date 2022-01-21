@@ -43,19 +43,19 @@ void setup() {
 	adc.begin();
 	
 	display.begin();
-	display.setContrast(57);              // Adjust for your display
+	display.setContrast(57);             // Adjust for your display
 	u8g2.begin(display);                 // connect u8g2 procedures to Adafruit GFX
-
+    delay(600);
 	display.clearDisplay();
 	display.setTextColor(BLACK);
-	u8g2.setFont(u8g2_font_squirrel_tr);
-	u8g2.setCursor(3, 15);
+	u8g2.setFont(u8g2_font_crox1hb_tr);
+	u8g2.setCursor(8, 15);
 	u8g2.println("-- Nulista --");
 	u8g2.setCursor(0, 35);
 	u8g2.println("LTC1594 ADC");
 	display.display();
 	
-	delay(4000);
+	delay(3700);
 	display.clearDisplay();
 }
 
@@ -68,16 +68,17 @@ void loop() {
 		}
 		ADC_ch[1] = ADC_ch[1]*10; // omdat ingang 2 en 10 weerstand divider heeft
 		display.clearDisplay();
-		u8g2.setFont(u8g2_font_6x10_mf);
-		u8g2.setCursor(3, 7);
-		u8g2.print("- Voltmeter -");
+		u8g2.setFont(u8g2_font_pressstart2p_8f);
+		u8g2.setCursor(0, 8);
+		u8g2.print(" Voltmeter");
+		u8g2.setFont(u8g2_font_mozart_nbp_tf);
 		display.drawLine(0, 8, 83, 8, BLACK); 
 		for(int i=0; i<4; i++){
 			u8g2.setCursor(0, (i*8)+20);
 			float Volt = (ADC_ch[i]*Vref)/4096.0;
 			Volt = roundf(Volt*100)/100;  // We ronden af tot op 2 cijders na de komma
-			if (Volt >9.99) u8g2.printf ("In %d: %2.2f V",i,Volt); // PS printf is niet beschikbaar bij AVR processoren
-			else u8g2.printf ("In %d:  %2.2f V",i,Volt); // PS printf is niet beschikbaar bij AVR processoren
+			if (Volt >9.99) u8g2.printf ("In %d:%2.2f V",i,Volt); // PS printf is niet beschikbaar bij AVR processoren
+			else u8g2.printf ("In %d: %2.2f V",i,Volt); // PS printf is niet beschikbaar bij AVR processoren
 		}
 		display.display();
 	}
