@@ -1,2 +1,6 @@
-# LTC15994
-A simple library for the LTC1594 12 bit ADC converter with SPI
+# LTC1594
+
+Contains a library of Souvik Saha and adapted by Ludo Nulens for the LTC1594
+
+
+Updated the library for Mega AVR and ESP8266 architecture.
