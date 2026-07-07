@@ -24,8 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ===========================================================================*/
 
-#ifndef LTC_H
-#define LTC_H
+#ifndef LTC1594_H
+#define LTC1594_H
 
 #if ARDUINO >= 100
  #include "Arduino.h"
@@ -37,10 +37,10 @@ class LTC1594 {
   public:
     LTC1594(int CS = 10);
     void begin();
-    unsigned int readChannel(byte thisCh);
+    uint16_t readChannel(byte thisCh);
 
   private:
-    int chipSel;  
+    int chipSel;
 };
 
 #endif

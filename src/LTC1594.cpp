@@ -38,31 +38,28 @@ LTC1594::LTC1594(int CS){
 
 void LTC1594::begin(void)
 {
-	pinMode(chipSel,OUTPUT);
+	pinMode(chipSel, OUTPUT);
 	digitalWrite(chipSel, HIGH);
-	// SPI.setBitOrder(MSBFIRST);
-	// SPI.setDataMode(SPI_MODE0); // mode 0 - 3
-	// spi.setFrequency(200000);
 	SPI.begin();
-	SPI.beginTransaction(SPISettings(200000, MSBFIRST, SPI_MODE0)); // getest op 1000000 en werkt nog ....
 }
 
-unsigned int LTC1594::readChannel(byte thisCh)
+uint16_t LTC1594::readChannel(byte thisCh)
 {
-	unsigned int dataIn = 0;
-	unsigned int result = 0;	
-	if (thisCh >3 ) thisCh = 0;
-	uint8_t dataOut = 8+thisCh;
-	digitalWrite(chipSel, HIGH);
-	SPI.transfer(dataOut);       // Stuur eerst het kanaal met CS hoog naar LTC1594
+	uint16_t dataIn = 0;
+	uint16_t result = 0;
 
-	digitalWrite(chipSel, LOW);  // CS laag zodat transfer out van het geselecteerde kanaal kan starten
+	if (thisCh > 3) thisCh = 0;
+	uint8_t dataOut = 8 + thisCh;
+
+	SPI.beginTransaction(SPISettings(200000, MSBFIRST, SPI_MODE0));
+	digitalWrite(chipSel, LOW);
 	dataIn = SPI.transfer(dataOut);
 	result = dataIn & 0x1F;
 	dataIn = SPI.transfer(0x00);
 	result = result << 8;
-	result = (result | dataIn)>>1;
+	result = (result | dataIn) >> 1;
 	digitalWrite(chipSel, HIGH);
-	return result;        
-}
+	SPI.endTransaction();
 
+	return result;
+}
