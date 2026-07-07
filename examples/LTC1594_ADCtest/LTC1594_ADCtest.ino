@@ -9,17 +9,17 @@
 // 10  - CS
 
 // ESP8266 - LTC1594
-// D5 - CLK
-// D6 - DOUT
-// D7 - DIN
-// D8 - CS
+// D5 / GPIO14 - CLK
+// D6 / GPIO12 - DOUT
+// D7 / GPIO13 - DIN
+// D8 / GPIO15 - CS
 
 #include <LTC1594.h>
 
 #define VREF 3.30
 
 #if defined(ESP8266)
-const uint8_t LTC1594_CS_PIN = D8;
+const uint8_t LTC1594_CS_PIN = 15; // GPIO15, labeled D8 on many ESP8266 boards.
 #else
 const uint8_t LTC1594_CS_PIN = 10;
 #endif
